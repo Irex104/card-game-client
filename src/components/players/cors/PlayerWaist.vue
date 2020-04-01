@@ -3,27 +3,34 @@
     
     <div v-for="card in playerWaist" :key="card.id">
         <div class="card_frame">
-            <p>
+            <!-- <p>
                 {{ card.id }}
                 {{ card.figureName }}
                 {{ card.colorName }}
-            </p>
-            <img class="card_image" src="./../../../assets/cards/reverse.png" alt="">
-        </div>
-        
+            </p> -->
+            <button class="card_button" @click="reveal(card)">
+              <img class="card_image" :src="require('@/assets/cards/' + card.visibleImagePath)"/>
+            </button> 
+        </div> 
     </div>
     
   </div>
 </template>
 
 <script>
-const apiURL = "http://localhost:9091/players/getPlayerCards/" + 1
+var apiURL = "http://localhost:9091/players/getPlayerCards/" + 1
 
 export default {
   data() {
     return {
       playerWaist: [],
       cardImages: []
+    }
+  },
+  methods: {
+    reveal(card) {
+      alert(card.figureName + ' ' 
+          + card.colorName);
     }
   },
   created() {
@@ -49,13 +56,13 @@ export default {
     }
     .card_image {
         width: 200px;
-        transition: all .2s ease-in-out;
+        /* transition: all .2s ease-in-out; */
     }
-    .card_image:hover{
+    /* .card_image:hover{
         -webkit-transform: scale(0.9);
         -ms-transform: scale(0.9);
         transform: scale(0.9);
-    }
+    } */
 
     .card_frame {
         display: inline-block;
@@ -66,7 +73,20 @@ export default {
         transition: all .2s ease-in-out;
     }
     .card_frame:hover{
-        cursor: pointer;
         background-color: #333333;
+    }
+
+    .card_button {
+      padding: 0%;
+      border: none;
+      border-radius: 15px;
+      background: transparent;
+      transition: all .2s ease-in-out;
+    }
+    .card_button:hover {
+      cursor: pointer;
+      -webkit-transform: scale(0.9);
+      -ms-transform: scale(0.9);
+      transform: scale(0.9);
     }
 </style>
